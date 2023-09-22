@@ -1,6 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const { getTasks, getTaskById, createTask ,updateTask,deleteTask} = require('../controllers/task');
+const{loginPage}=require('../controllers/auth')
 const isAuth = require("../middleware/is_Auth");
 const router = express.Router();
 
@@ -126,5 +127,8 @@ router.post('/updateTask/:id', isAuth, validateTask, updateTask);
  *         description: Task not found
  */
 router.post('/deleteTask/:id', isAuth, deleteTask);
+
+// Get default landing page
+router.get("/",loginPage)
 
 module.exports = router;
