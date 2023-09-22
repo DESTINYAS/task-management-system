@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" href="/css/tasks.css" />
+</head>
+<%- include('./includes/navbar.ejs') %>
+<body>
+    <div class="container">
+        <div class="left-column">
+    <h1>Task List</h1>
+    <!-- Display Existing Tasks -->
+    <ul>
+        <% tasks.forEach(task => { %>
+            <li>
+                <a href="/tasks/<%= task.id %>">
+                    <strong><%= task.title %></strong>
+                <p><%= task.description.toString().substring(0,30) %>...</p>
+                </a>
+                <form action="/deleteTask/<%= task.id %>" method="post" class="delete-form">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</div>
+<div class="right-column">
+
+    <!-- Create New Task Form -->
+    <h2>Create New Task</h2>
+    <form action="/tasks" method="post">
+        <div>
+            <label for="title">Task Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="taskDescription">Task Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+        <div>
+            <button type="submit">Create Task</button>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+</html>

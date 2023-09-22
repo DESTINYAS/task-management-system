@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task Details</title>
+    <link rel="stylesheet" href="/css/task.css" />
+</head>
+<body>
+    <%- include('./includes/navbar.ejs') %>
+    <div class="container">
+        <div class="center-content">
+            <h1>Edit Task Details</h1>
+            <div class="task-details">
+                <form action="/updateTask/<%= task.id %>" method="post">
+                    <div class="form-container">
+                        <div>
+                            <label for="title">Task Title:</label>
+                            <input type="text" id="title" name="title" class="editable-field" value="<%= task.title %>">
+                        </div>
+                        <div>
+                            <label for="description">Task Description:</label>
+                            <textarea id="description" name="description" class="editable-description"><%= task.description %></textarea>
+                        </div>
+                        <div>
+                            <button type="submit">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="back-link">
+                <a href="/tasks">Back to Task List</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
