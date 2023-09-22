@@ -7,11 +7,10 @@ const bodyParser = require("body-parser");
 const app = express();
 const ejs = require("ejs");
 const swagger = require('./swagger'); 
-// const swaggerValidator = require('swagger-express-validator');
+const flash = require("connect-flash");
 dotenv.config();
 
 app.use('/api', swagger.serveSwaggerUI, swagger.setupSwaggerUI());// Serve Swagger UI
-// app.use(swaggerValidator());
 
     // Save sessions in db
     const store = new MongoDBStore({
@@ -29,6 +28,7 @@ app.use('/api', swagger.serveSwaggerUI, swagger.setupSwaggerUI());// Serve Swagg
     saveUninitialized: false,
     store: store,
     }));
+    app.use(flash());
 
     app.use((req, res, next) => {
         res.locals.isAuthenticated = req.session.isLoggedIn;

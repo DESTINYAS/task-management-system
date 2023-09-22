@@ -15,7 +15,7 @@ Installation and Usage
 (3) Install dependencies: npm install
 (4) Create a .env file and add MONGODB_URI and SECRET as indicated in the .env.copy file.
 (5) You can then run the application using: npm start
-(6) Once the application is running you can access it on your browser via http://localhost:3000/ 
+(6) Once the application is running you can access it on your browser via http://localhost:3000/auth/register
 (7) Once the application is running you can access the API swagger documentation on your browser via http://localhost:3000/api/  
 
 Note

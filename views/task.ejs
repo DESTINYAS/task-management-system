@@ -9,6 +9,9 @@
 <body>
     <%- include('./includes/navbar.ejs') %>
     <div class="container">
+      <%if(errorMessage){%>
+        <div class="user-message-error"><%=errorMessage%></div>
+        <%}%>
         <div class="center-content">
             <h1>Edit Task Details</h1>
             <div class="task-details">
@@ -16,11 +19,11 @@
                     <div class="form-container">
                         <div>
                             <label for="title">Task Title:</label>
-                            <input type="text" id="title" name="title" class="editable-field" value="<%= task.title %>">
+                            <input type="text" id="title" name="title" class="editable-field" value="<%= task.title %>" required>
                         </div>
                         <div>
                             <label for="description">Task Description:</label>
-                            <textarea id="description" name="description" class="editable-description"><%= task.description %></textarea>
+                            <textarea id="description" name="description" class="editable-description" required><%= task.description %></textarea>
                         </div>
                         <div>
                             <button type="submit">Update</button>

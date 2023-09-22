@@ -90,3 +90,15 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+.user-message {
+    margin: auto;
+    background: #b9c9ff;
+    text-align: center;
+  }
+  
+  .user-message-error {
+    border-color: red;
+    background: rgb(255, 176, 176);
+    color: red;
+  }

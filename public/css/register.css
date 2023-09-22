@@ -59,3 +59,14 @@ h1 {
     text-decoration: none;
     color: #007BFF;
 }
+.user-message {
+    margin: auto;
+    background: #b9c9ff;
+    text-align: center;
+  }
+  
+  .user-message-error {
+    border-color: red;
+    background: rgb(255, 176, 176);
+    color: red;
+  }

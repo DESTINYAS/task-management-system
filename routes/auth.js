@@ -73,6 +73,7 @@ router.post('/login',validateLogin,login )
 router.get('/logout', getLogout);
 
 router.get("/login",loginPage)
+router.get("/",loginPage)
 router.get("/register",registerPage)
 
 module.exports = router;

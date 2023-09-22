@@ -9,6 +9,9 @@
 <%- include('./includes/navbar.ejs') %>
 <body>
     <div class="container">
+        <%if(errorMessage){%>
+            <div class="user-message-error"><%=errorMessage%></div>
+            <%}%>
         <div class="left-column">
     <h1>Task List</h1>
     <!-- Display Existing Tasks -->

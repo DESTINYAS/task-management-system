@@ -8,13 +8,17 @@ const { validationResult } = require('express-validator');//Require Express vali
 exports.register= async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      req.flash("error", "Please provide valid credentials and a strong password");
+        return res.redirect("/auth/register")
     }
     try {
       // Check if the username already exists
       const existingUser = await User.find({ email: req.body.email })
+      console.log(existingUser.length)
       if(existingUser.length>0){
-        return res.redirect("/auth/login");}
+        req.flash("error", "Email already exist.");
+        return res.redirect("/auth/login")
+}
 
       const email=req.body.email
       const password=req.body.password
@@ -27,11 +31,15 @@ exports.register= async (req, res, next) => {
       });
      const savedUser = user.save()
     if(savedUser){
-      return res.render("login")}
+      req.flash("error", "User registered successfully.Please Login");
+      return res.redirect("/auth/login")
+        
+    }
       console.log(savedUser)
     } catch (error) {
       console.error('Error registering user:', error);
-      return res.render("register")
+      req.flash("error", "Network error please try again");
+      return res.redirect("/auth/register")
     }
   };
 
@@ -42,7 +50,8 @@ exports.register= async (req, res, next) => {
     const email =req.body.email
   
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      req.flash("error", "Invalid login credentials.");
+    return res.redirect("/auth/login")
     }
     try {
       // Check if the user exists
@@ -51,7 +60,9 @@ exports.register= async (req, res, next) => {
       const hashedPassword=user[0].passwordHash
         console.log(hashedPassword)
       if(!user){
-        return res.redirect("/auth/register");}
+        req.flash("error", "User does not exist.");
+        return res.redirect("/auth/register")
+        }
   
       const validPassword = await bcrypt.compare(password, hashedPassword);
   
@@ -60,21 +71,23 @@ exports.register= async (req, res, next) => {
         req.session.user = user;
         req.session.save()
         const tasks = await Task.find({ createdBy: req.session.user})
-         return res.render("tasks",{tasks})
+         return res.render("tasks",{ errorMessage: req.flash("error"),tasks})
       }
   
-      res.status(401).json({ message: 'Invalid password' });
+      req.flash("error", "Wrong password.");
+    return res.redirect("/auth/login")
     } catch (error) {
       console.error('Error logging in user:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      req.flash("error", "Network error Please try again.");
+        return res.redirect("/auth/login")
     }
   };
 
   exports.loginPage = (req, res, next) => {
-   return res.render("login");
+   return res.render("login",{ errorMessage: req.flash("error")});
   };
   exports.registerPage = (req, res, next) => {
-    return res.render("register");
+    return res.render("register",{ errorMessage: req.flash("error")});
   };
   
 
